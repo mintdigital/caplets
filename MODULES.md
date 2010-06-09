@@ -1,10 +1,9 @@
 Caplets Modules
 ===============
 
-caplets/deploy
---------------
+## caplets/deploy
 
-#### Variables
+### Variables
 
 `:bin_cmd` - Command used to execute binaries within the context of the app.
   For instance, `caplets/bundle` sets this to `gem exec`. (default: `nil`)
@@ -24,12 +23,12 @@ caplets/deploy
 
 `:user` - UNIX user as which to login and run deploys. (default: `deploy`)
 
-### caplets/bundle
+## caplets/bundle
 
 Bundler 0.9+ support. By default, run after every code update, this `bundle
 install`s gems into the project (not into system gems to avoid using `sudo`).
 
-#### Variables
+### Variables
 
 `:bundle_exclude` - Bundler groups to exclude from installation. Passed to
   bundler's `--without` switch. (default: `%w[development test]`)
@@ -39,16 +38,16 @@ install`s gems into the project (not into system gems to avoid using `sudo`).
 `:bundle_to` - Subdirectory of the application in which to put installed gems.
   Passed as an argument to `bundle install`. (default: `vendor/bundled_gems`)
 
-#### Tasks
+### Tasks
 
 `deploy:bundle:install` - Runs a `bundle install` to install needed gems from
   the application's Gemfile.
 
-#### Hooks
+### Hooks
 
 `deploy:bundle:install` after `deploy:update_code`
 
-### caplets/db
+## caplets/db
 
 Tasks to support using ActiveRecord within your applications. This module
 adds functionality to write out your `database.yml` file and provides a
@@ -59,7 +58,7 @@ deployed to your DB server. This means you don't even have to list it in your
 deploy file. Instead, it expects to run your migrations from your `:primary
 :app` server.
 
-#### Variables
+### Variables
 
 `:db_host` - default: `localhost`
 `:db_adapter` - default: `mysql`
@@ -77,7 +76,7 @@ for your current `:environment`. If you'd rather, you can specify the entire
   environment key. Useful for adding access to slaves or other DBs.
   (default: {})
 
-#### Tasks
+### Tasks
 
 `deploy:db:config` - Write a generated `database.yml` to your project's config
   directory.
@@ -87,26 +86,26 @@ for your current `:environment`. If you'd rather, you can specify the entire
 `deploy:migrations` - Do a deploy with migrations, including doing a
   `web:disable` first and restarting (not reloading) the backends
 
-#### Hooks
+### Hooks
 
 `deploy:db:config` after `deploy:setup`
 
-### caplets/git-tag
+## caplets/git-tag
 
 Automatically tag a revision on deploy.
 
-#### Tasks
+### Tasks
 
 `git:tag_current_release` - Tag the `:current_revision` with a tag like
 `deploy-<environment>-<timestamp>` and push it to the origin.
 
-#### Hooks
+### Hooks
 
 `git:tag_current_release` after `deploy:migrations`
 `git:tag_current_release` after `deploy:quick`
 `git:tag_current_release` after `deploy:rebuild`
 
-### caplets/memcached
+## caplets/memcached
 
 Support for keeping track of memcached nodes and writing a `memcached.yml`
 config file based on the `:memcached` role.
@@ -127,9 +126,9 @@ dynamically based on those servers' `:private_ip`s. Otherwise:
 
 `deploy:memcached:config` after `deploy:setup`
 
-### caplets/mongrel
+## caplets/mongrel
 
-### caplets/networkfs
+## caplets/networkfs
 
 ## caplets/passenger
 
