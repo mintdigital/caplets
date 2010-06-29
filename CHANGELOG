@@ -1,2 +1,5 @@
+== 1.0.1 (HEAD)
+  * Add deploy:passenger:reload
+
 == 1.0.0
   * Initial public release
