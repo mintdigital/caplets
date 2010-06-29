@@ -10,7 +10,7 @@ namespace :deploy do
     task :install, :roles => lambda { fetch(:bundle_roles) },
                    :except => {:no_release => true} do
       without = fetch(:bundle_exclude).map{|g| "--without #{g}"}.join(' ')
-      run_current "bundle install #{fetch(:bundle_to)} #{without}"
+      run_current "bundle check || bundle install #{fetch(:bundle_to)} #{without}"
     end
   end
 end

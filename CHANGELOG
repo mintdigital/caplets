@@ -1,4 +1,5 @@
 == 1.0.1 (HEAD)
+  * bundle:install now uses `bundle check` to short-circuit if possible
   * Add deploy:passenger:reload
 
 == 1.0.0
