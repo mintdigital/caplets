@@ -56,15 +56,13 @@ namespace :deploy do
 
   desc "Setup a Git-based deploy"
   task :setup, :except => {:no_release => true} do
-    run_multi(
-      "if [ -d #{fetch(:current_path)}/.git ]",
-      "then cd #{fetch(:current_path)}",
-      "#{try_sudo} git fetch",
-      "else #{try_sudo} git clone #{fetch(:repository)} #{fetch(:current_path)}",
-      "fi",
-      "mkdir -p " + fetch(:required_children,[]).
-                      map {|dir| "#{fetch(:current_path)}/#{dir}" }.
-                      join(' ')
+    run "if [ -d #{fetch(:current_path)}/.git ] ; "+
+        "then cd #{fetch(:current_path)} && #{try_sudo} git fetch ; "+
+        "else #{try_sudo} git clone #{fetch(:repository)} #{fetch(:current_path)} ; "+
+        "fi && "+
+        "mkdir -p " + fetch(:required_children,[]).
+                        map {|dir| "#{fetch(:current_path)}/#{dir}" }.
+                        join(' ')
     )
   end
 
