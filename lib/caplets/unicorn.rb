@@ -4,7 +4,8 @@ namespace :deploy do
   namespace :unicorn do
 
     def start_cmd
-      "#{fetch(:_unicorn_cmd,'unicorn')} -D" +
+      fetch(:bin_cmd,'') +
+      " #{fetch(:_unicorn_cmd,'unicorn')} -D" +
       " -c config/unicorn.rb" +
       " -E #{fetch(:environment)}"
     end

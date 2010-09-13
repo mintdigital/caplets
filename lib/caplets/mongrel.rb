@@ -20,19 +20,22 @@ namespace :deploy do
     desc "Start the mongrel_cluster"
     task :start, :roles => :app do
       run "cd #{current_path} && " +
-        "mongrel_rails cluster::start -C #{shared_path}/config/cluster.yml --clean"
+        fetch(:bin_cmd,'') +
+        " mongrel_rails cluster::start -C #{shared_path}/config/cluster.yml --clean"
     end
 
     desc "Stop the mongrel_cluster"
     task :stop, :roles => :app do
       run "cd #{current_path} && " +
-        "mongrel_rails cluster::stop -C #{shared_path}/config/cluster.yml --clean"
+        fetch(:bin_cmd,'') +
+        " mongrel_rails cluster::stop -C #{shared_path}/config/cluster.yml --clean"
     end
 
     desc "Restart the mongrel_cluster"
     task :restart, :roles => :app do
       run "cd #{current_path} && " +
-        "mongrel_rails cluster::restart -C #{shared_path}/config/cluster.yml --clean"
+        fetch(:bin_cmd,'') +
+        " mongrel_rails cluster::restart -C #{shared_path}/config/cluster.yml --clean"
     end
 
     desc "Restart the mongrel_cluster, as mongrel does not support reloading"

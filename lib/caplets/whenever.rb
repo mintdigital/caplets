@@ -9,7 +9,7 @@ namespace :deploy do
       load_file = "config/whenever/#{fetch(:environment)}.#{role}.rb"
       [ "cd #{fetch(:current_path)} &&",
         "if [ -f #{load_file} ] ; then",
-          "#{fetch(:bin_cmd)} whenever",
+          "#{fetch(:bin_cmd,'')} whenever",
           "--update-crontab #{fetch(:application)}.#{fetch(:environment)}.#{role}",
           "--load-file #{load_file}",
           "--set environment=#{fetch(:environment)}",
