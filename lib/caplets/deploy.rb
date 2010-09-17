@@ -63,7 +63,6 @@ namespace :deploy do
         "mkdir -p " + fetch(:required_children,[]).
                         map {|dir| "#{fetch(:current_path)}/#{dir}" }.
                         join(' ')
-    )
   end
 
   desc <<-DESC
