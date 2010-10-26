@@ -120,7 +120,7 @@ dynamically based on those servers' `:private_ip`s. Otherwise:
 ### Tasks
 
 `deploy:memcached:config` - Write a generated `memcached.yml` to your
-  projet's config directory.
+  project's config directory.
 
 ### Hooks
 

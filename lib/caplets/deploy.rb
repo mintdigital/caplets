@@ -92,15 +92,15 @@ namespace :deploy do
 
   # Just timestamps, please
   task :finalize_update, :except => { :no_release => true } do
-  if fetch(:normalize_asset_timestamps, false)
-    stamp = Time.now.utc.strftime("%Y%m%d%H%M.%S")
-    asset_paths = %w(images stylesheets javascripts).map {|p|
-      "#{latest_release}/public/#{p}"
-    }.join(" ")
-    run "find #{asset_paths} -exec touch -t #{stamp} {} ';'; true",
-      :env => { "TZ" => "UTC" }
+    if fetch(:normalize_asset_timestamps, false)
+      stamp = Time.now.utc.strftime("%Y%m%d%H%M.%S")
+      asset_paths = %w(images stylesheets javascripts).map {|p|
+        "#{latest_release}/public/#{p}"
+      }.join(" ")
+      run "find #{asset_paths} -exec touch -t #{stamp} {} ';'; true",
+        :env => { "TZ" => "UTC" }
+    end
   end
-end
 
   %w[start stop restart reload].each do |taskname|
     desc "#{taskname.capitalize} the application server(s)"
