@@ -9,3 +9,4 @@ config.instance_eval do
 end
 
 config.load 'caplets/deploy'
+config.load 'caplets/ssh'

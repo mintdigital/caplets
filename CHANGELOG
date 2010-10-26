@@ -1,6 +1,7 @@
 == 1.0.1 (HEAD)
   * bundle:install now uses `bundle check` to short-circuit if possible
   * Add deploy:passenger:reload
+  * Add ssh, ssh:app, and ssh:web
 
 == 1.0.0
   * Initial public release

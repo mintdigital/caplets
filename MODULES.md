@@ -132,6 +132,18 @@ dynamically based on those servers' `:private_ip`s. Otherwise:
 
 ## caplets/passenger
 
+## caplets/ssh
+
+Tasks that present a list of your configured servers, and provide quick SSH
+access to any of them. The server list can optionally be narrowed down by
+role.
+
+### Tasks
+
+`ssh` - Connects to any configured server. (Usage: `cap <environment> ssh`)
+`ssh:app` - Connects to any configured app server.
+`ssh:web` - Connects to any configured web server.
+
 ## caplets/thinking-sphinx
 
 ## caplets/unicorn
