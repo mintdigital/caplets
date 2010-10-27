@@ -3,7 +3,7 @@ module Caplets
     MAJOR = 1
     MINOR = 0
     TINY  = 1
-    BUILD = 'pre'
+    BUILD = ''
     STRING = [MAJOR,MINOR,TINY,BUILD].compact.join('.')
   end
   VERSION = Version::STRING
