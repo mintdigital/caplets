@@ -1,3 +1,7 @@
+== 1.0.2
+  * No changes. The 1.0.1 gem was not properly created, so it was yanked and replaced
+    with 1.0.2.
+
 == 1.0.1
   * bundle:install now uses `bundle check` to short-circuit if possible
   * Add deploy:passenger:reload
