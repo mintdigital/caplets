@@ -1,3 +1,6 @@
+== 1.0.3
+  * Improved process management of deploy:unicorn commands.
+
 == 1.0.2
   * No changes. The 1.0.1 gem was not properly created, so it was yanked and replaced
     with 1.0.2.

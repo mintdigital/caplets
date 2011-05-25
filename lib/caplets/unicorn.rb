@@ -19,6 +19,16 @@ namespace :deploy do
      "while [ #{'!' unless to_disappear} -f tmp/pids/#{pid} ] ; do sleep 1; done"
     end
 
+    def wait_for_workers
+      working_count =
+        "cat tmp/pids/unicorn.pid | " +
+        "xargs ps -o command --ppid | " +
+        "grep unicorn | " +
+        "wc -l"
+      condition = "$(#{working_count}) -lt #{fetch(:server_processes)}"
+      "while [ #{condition} ]  ; do sleep 1 ; done"
+    end
+
     desc "Write the unicorn config to the shared directory."
     task :config, :roles => :app, :except => {:no_release => true} do
       config = File.read(__FILE__).split(/^__END__$/, 2)[1]
@@ -28,30 +38,27 @@ namespace :deploy do
 
     desc "Start the unicorn master and workers."
     task :start, :roles => :app, :except => {:no_release => true} do
-      run_current start_cmd
+      run_current start_cmd, wait_for_workers
     end
 
     desc "Stop the unicorn master and workers."
     task :stop, :roles => :app, :except => {:no_release => true} do
-      run_current stop_cmd
+      run_current stop_cmd, wait_for_pid('unicorn.pid', :to_disappear)
     end
 
     desc "Restart the unicorn master and workers."
     task :restart, :roles => :app, :except => {:no_release => true} do
-      run_current stop_cmd,
-                  wait_for_pid('unicorn.pid', :to_disappear),
-                  start_cmd,
-                  wait_for_pid('unicorn.pid'),
-                  'sleep 5' # app start-up
+      stop
+      start
     end
 
     desc "Reload the unicorn master and workers with zero downtime."
     task :reload, :roles => :app, :except => {:no_release => true} do
-      run_current stop_cmd('USR2'),
-                  wait_for_pid('unicorn.pid.oldbin'),
-                  wait_for_pid('unicorn.pid'),
-                  'sleep 5', # app start-up
-                  stop_cmd('QUIT', 'unicorn.pid.oldbin')
+      run_current stop_cmd('USR2'),                      # boot new master
+                  wait_for_pid('unicorn.pid.oldbin'),    # wait for master switch
+                  wait_for_pid('unicorn.pid'),           # wait for new master
+                  wait_for_workers,                      # wait for new workers
+                  stop_cmd('QUIT', 'unicorn.pid.oldbin') # stop old master
     end
   end
 end
