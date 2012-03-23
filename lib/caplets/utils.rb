@@ -3,7 +3,6 @@ module Caplets::Utils
   def rake(cmd)
     run_current [
       "RAILS_ENV=#{fetch(:environment)}",
-      fetch(:bin_cmd,''),
       fetch(:rake, 'rake'),
       cmd
     ].join(' ')
