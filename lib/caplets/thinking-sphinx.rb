@@ -43,7 +43,12 @@ namespace :deploy do
   namespace :ts do
     desc "Generate the Thinking Sphinx config file"
     task :config, :roles => [:app, :sphinx] do
-     rake 'ts:config'
+     rake 'ts:configure'
+    end
+
+    desc "Generate fresh index files for real-time indices"
+    task :config, :roles => [:app, :sphinx] do
+     rake 'ts:generate'
     end
 
     desc "Rebuild Thinking Sphinx config and indexes and restart Sphinx"
@@ -59,6 +64,11 @@ namespace :deploy do
     desc "Start Sphinx searchd via Thinking Sphinx"
     task :start, :roles => :sphinx do
       rake 'ts:start'
+    end
+
+    desc "Restart Sphinx searchd via Thinking Sphinx"
+    task :start, :roles => :sphinx do
+      rake 'ts:restart'
     end
 
     desc "Stop Sphinx searchd via Thinking Sphinx"
