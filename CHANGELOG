@@ -1,3 +1,6 @@
+== 1.0.4 - 2013.03.08
+  * Update rake task names for thunking sphinx gem.
+
 == 1.0.4 - 2012.03.23
   * rake no longer auto-prepends 'bundle exec'. `set(:rake, 'bundle exec rake')`
     instead.
